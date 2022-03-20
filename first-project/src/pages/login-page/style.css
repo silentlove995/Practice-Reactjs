@@ -22,8 +22,24 @@
 }
 
 .login-container .field-wrapper .field-input {
+  border-radius: 2px;
+  outline: none;
   height: 28px;
   width: 300px;
+}
+
+.login-container .field-wrapper .field-input.error {
+  border-radius: 2px;
+  border: 1px solid #cd1f1f;
+  outline: none;
+  height: 28px;
+  width: 300px;
+}
+
+.login-container .field-wrapper .error-message{
+  color: #cd1f1f;
+  font-size: 14px;
+  margin-left: 100px;
 }
 
 .login-container .btn-submit {
