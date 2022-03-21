@@ -23,6 +23,7 @@
 
 .login-container .field-wrapper .field-input {
   border-radius: 2px;
+  border: 1px solid black;
   outline: none;
   height: 28px;
   width: 300px;

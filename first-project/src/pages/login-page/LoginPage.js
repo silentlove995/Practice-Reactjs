@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import "./style.css";
+import classNames from 'classnames'
+import { Validator } from 'react';
 
 class LoginPage extends Component {
 
@@ -19,8 +21,8 @@ class LoginPage extends Component {
         let errors = {}
         if (!data.username) {
             errors.username = "Please enter username"
-        }else{
-            if (data.username.length < 3) {
+        } else {
+            if (data.username.length < 4) {
                 errors.username = "Username must have more than 3 characters"
             }
         }
@@ -30,8 +32,11 @@ class LoginPage extends Component {
         }
 
         console.log("errors: ", errors);
-        this.setState([ errors ]);
+        this.setState({ errors })
 
+        if (Object.keys(errors).length === 0) {
+            //call api
+        }
         //submit data to server
         //console.log("submit ", this.state.data, " to server");
         event.preventDefault();
@@ -53,18 +58,17 @@ class LoginPage extends Component {
                 <div className='field-wrapper'>
                     <div className="flex-container">
                         <label className='field-label' htmlFor="">User name</label>
-                        <input className='field-input' name='username' type="text" onChange={this.onInPutChange} />
+                        <input className={classNames('field-input', { "error": this.state.errors.username })} name='username' type="text" onChange={this.onInPutChange} />
                     </div>
                     {/* { this.state.errors.username ? <span className='error-message'>{this.state.errors.username}</span> : '' } */}
-                    {this.state.errors.username && <span className='error-message'>{this.state.errors.username}</span> }
-                    <span className='error-message'>{this.state.errors.username}</span> 
+                    {this.state.errors.username && <span className='error-message'>{this.state.errors.username}</span>}
                 </div>
                 <div className='field-wrapper'>
                     <div className="flex-container">
                         <label className='field-label' htmlFor="">Password</label>
-                        <input className='field-input' name='password' type="password" onChange={this.onInPutChange} />
+                        <input className={classNames('field-input', { "error": this.state.errors.password })} name='password' type="password" onChange={this.onInPutChange} />
                     </div>
-                    { this.state.errors.password && <span className='error-message'>{this.state.errors.password}</span> }
+                    {this.state.errors.password && <span className='error-message'>{this.state.errors.password}</span>}
                 </div><br />
                 <div className='submit-wrapper'>
                     <input type="submit" className='btn-submit' onClick={this.submit} value="Login" />
