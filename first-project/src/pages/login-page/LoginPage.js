@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import "./style.css";
-import {withRouter} from 'react-router-dom';
 import classNames from 'classnames'
-import { Validator } from 'react';
+//import { Validator } from 'react';
 
 class LoginPage extends Component {
 
@@ -36,10 +35,12 @@ class LoginPage extends Component {
         this.setState({ errors })
 
         if (Object.keys(errors).length === 0) {
-            //call api
+            //call api login and redirect to dashboard
+
+            //redirect dashboard
+            //submit data to server
+            //console.log("submit ", this.state.data, " to server");
         }
-        //submit data to server
-        //console.log("submit ", this.state.data, " to server");
         event.preventDefault();
     }
 
