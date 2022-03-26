@@ -56,9 +56,9 @@ export default function DefaultLayout({routers}) {
                                 )
                             })
                         }
-                        <Route path="/">
+                        {/* <Route path="/">
                             <Redirect to={"/page404"}/>
-                        </Route>
+                        </Route> */}
                     </Switch>
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>

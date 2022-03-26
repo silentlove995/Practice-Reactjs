@@ -6,6 +6,7 @@ import {
     TeamOutlined,
     UserOutlined,
 } from '@ant-design/icons';
+import Page404 from "./views/pages/page404/Page404";
 
 const routers = [
     {
@@ -15,6 +16,13 @@ const routers = [
         component: <Dashboard/>,
         children: [],
     },
+    // {
+    //     path: "/page404",
+    //     title: "Page 404",
+    //     icon: <PieChartOutlined/>,
+    //     component: <Page404/>,
+    //     children: [],
+    // },
     {
         path: "/student",
         title: "Students",
