@@ -1,13 +1,18 @@
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import createSagaMiddleware from 'redux-saga'
+import reducerAll from '../reducers';
+import authSaga from '../sagas/authSaga'
 
-function reducers(state, action){
-    console.log(action);
-    switch(action.type){
-        default:
-            return state;
-    }
-}
+// create th saga middleware
+const sagaMiddleware = createSagaMiddleware()
 
-const store = createStore(reducers, {})
+const store = createStore(reducerAll, applyMiddleware(sagaMiddleware))
+
+// then run the saga
+sagaMiddleware.run(authSaga)
+
+store.subscribe(() => {
+    console.log(store.getState())
+})
 
 export default store;

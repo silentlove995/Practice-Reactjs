@@ -1,16 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Form, Input, Button, Card, message } from 'antd';
 import './style.css'
 
 import store from '../../../redux/store';
 
 export default function LoginPage() {
+
+    let [isSubmitting, setIsSubmitting] = useState(false)
+
+    store.subscribe(() => {
+        let state = store.getState()
+        setIsSubmitting(state.auth.submitting)
+    })
+
     const onFinish = (values) => {
         console.log('Success:', values);
         // submit login
-        store.dispatch({type: "USER_LOGIN", data: values})
+        store.dispatch({type: "USER_LOGIN", payload: values})
         // redirect to home
         //window.location.href = "/"
+        
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -39,10 +48,10 @@ export default function LoginPage() {
                             required: true,
                             message: 'Please input your username!',
                         },
-                        {
-                            type: "email",
-                            message: "The input is not valid E-mail"
-                        }
+                        // {
+                        //     type: "email",
+                        //     message: "The input is not valid E-mail"
+                        // }
                     ]}
                 >
                     <Input />
@@ -58,7 +67,6 @@ export default function LoginPage() {
                         },
                         {
                             validator: (_, value) => {
-                                console.log(value);
                                 let check = false;
                                 let message = ""
                                 if(value && value.length > 3){
@@ -80,7 +88,7 @@ export default function LoginPage() {
                         span: 16,
                     }}
                 >
-                    <Button type="primary" htmlType="submit">
+                    <Button type="primary" htmlType="submit" loading={isSubmitting}>
                         Submit
                     </Button>
                 </Form.Item>
