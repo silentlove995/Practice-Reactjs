@@ -3,6 +3,24 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { getToken } from './helpers/storage';
+import { useJwt ,isExpired, decodeToken } from 'react-jwt'
+import store from './redux/store';
+
+
+let token = getToken()
+
+if(token){
+  console.log(token)
+  let decodedData = decodeToken(token)
+  console.log(decodedData)
+
+  // if token still valid
+  store.dispatch({ type: "USER_LOGIN_SUCCEEDED", payload: {
+    username: decodedData.username,
+    token
+  }})
+}
 
 ReactDOM.render(
   

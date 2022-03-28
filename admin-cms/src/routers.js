@@ -38,7 +38,7 @@ const routers = [
             },
             {
                 path: "/students",
-                title: "Create Student",
+                title: "List Student",
                 icon: "",
                 component: <div>List Student</div>,
                 children: []

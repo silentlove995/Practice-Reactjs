@@ -5,6 +5,7 @@ let initialState = {
     username: "",
     token: "",
     submitting: false,
+    message: "",
 }
 
 function authReducer(state = initialState, action) {
@@ -15,6 +16,7 @@ function authReducer(state = initialState, action) {
                 username: "",
                 token: "",
                 submitting: true,
+                message: "",
             }
 
         case 'USER_LOGIN_SUCCEEDED':
@@ -23,6 +25,7 @@ function authReducer(state = initialState, action) {
                 username: action.payload.username,
                 token: action.payload.token,
                 submitting: false,
+                message: "",
             }
 
         case 'USER_LOGIN_FAILED':
@@ -31,6 +34,7 @@ function authReducer(state = initialState, action) {
                 username: "",
                 token: "",
                 submitting: false,
+                message: action.message,
             }
 
         default:

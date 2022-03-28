@@ -1,25 +1,36 @@
-import React, { useState } from 'react'
-import { Form, Input, Button, Card, message } from 'antd';
+import React, { useEffect, useState } from 'react'
+import { Form, Input, Button, Card, message, Typography } from 'antd';
 import './style.css'
 
 import store from '../../../redux/store';
+import { useHistory } from 'react-router-dom'
+
+const { Text } = Typography;
 
 export default function LoginPage() {
 
     let [isSubmitting, setIsSubmitting] = useState(false)
+    let [message, setMessage] = useState("")
+    let history = useHistory()
 
-    store.subscribe(() => {
-        let state = store.getState()
-        setIsSubmitting(state.auth.submitting)
-    })
+    useEffect(() => {
+        store.subscribe(() => {
+            let state = store.getState()
+            setIsSubmitting(state.auth.submitting)
+            if (state.auth.isLoggedIn) {
+                history.push("/dashboard")
+            }
+            setMessage(state.auth.message)
+        })
+    }, [])
 
     const onFinish = (values) => {
         console.log('Success:', values);
         // submit login
-        store.dispatch({type: "USER_LOGIN", payload: values})
+        store.dispatch({ type: "USER_LOGIN", payload: values })
         // redirect to home
         //window.location.href = "/"
-        
+
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -69,9 +80,9 @@ export default function LoginPage() {
                             validator: (_, value) => {
                                 let check = false;
                                 let message = ""
-                                if(value && value.length > 3){
+                                if (value && value.length > 3) {
                                     check = true;
-                                } else{
+                                } else {
                                     message = "Password must have more than 3 characters!"
                                 }
                                 return check ? Promise.resolve() : Promise.reject(message)
@@ -88,9 +99,12 @@ export default function LoginPage() {
                         span: 16,
                     }}
                 >
+                    <div>
+                        <Text type='danger'>{message}</Text>
+                    </div>
                     <Button type="primary" htmlType="submit" loading={isSubmitting}>
                         Submit
-                    </Button>
+                    </Button> 
                 </Form.Item>
             </Form>
         </Card>
